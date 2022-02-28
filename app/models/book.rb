@@ -17,6 +17,8 @@ class Book < ApplicationRecord
 
   validate { |book| book.errors[:name] << "I don't like exercise" if book.name.include?('exercise') }
 
+  enum sales_status: { reservation: 0, now_on_sale: 1, end_of_print: 2 }
+
   def add_lovely_to_cat
     self.name = self.name.gsub(/[cC]at/) { |matched| "lovely #{matched}" }
   end
