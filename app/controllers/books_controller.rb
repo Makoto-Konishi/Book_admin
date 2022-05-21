@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   protect_from_forgery except: [:destroy]
   before_action :set_book, only: [:show, :destroy]
+  around_action :action_logger, only: [:destroy]
 
   def show
     respond_to do |format|
@@ -21,5 +22,11 @@ class BooksController < ApplicationController
 
   def set_book
     @book = Book.find(params[:id])
+  end
+
+  def action_logger
+    logger.info 'around-before'
+    yield
+    logger.info 'around-after'
   end
 end
