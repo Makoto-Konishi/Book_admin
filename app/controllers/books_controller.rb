@@ -4,6 +4,10 @@ class BooksController < ApplicationController
   around_action :action_logger, only: [:destroy]
 
   def show
+    respond_to do |format|
+      format.html # ブロックを省略すると、「render :show, format: :html」と同義
+      format.json { render json: @book } # テンプレートの探索はせずに、@bookオブジェクトをJSONにしたデータを返すように指定
+    end
   end
 
   def destroy
