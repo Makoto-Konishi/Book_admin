@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  resources :books
+  resources :books, only: [:show, :destroy]
+  resources :publishers
 end
